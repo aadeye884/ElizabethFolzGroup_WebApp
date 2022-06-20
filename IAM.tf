@@ -1,5 +1,5 @@
 # IAM profile
-resource "aws_iam_instance_profile" "EliabethFolzGroup_IAM-Profile" {
+resource "aws_iam_instance_profile" "EliabethFolzGroup_IAM_Profile" {
   name = "EliabethFolzGroup_IAM_Profile"
   role = aws_iam_role.EliabethFolzGroup_IAM_Role.name
 }
