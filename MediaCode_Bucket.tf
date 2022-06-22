@@ -1,6 +1,6 @@
 # Media S3 bucket (Media & Code)
 resource "aws_s3_bucket" "elizabethfolzgroupmedia" {
-  bucket = "elizabethfolzgroupmedia"
+  bucket        = "elizabethfolzgroupmedia"
   force_destroy = true
 
   tags = {
@@ -14,10 +14,10 @@ resource "aws_s3_bucket_policy" "elizabethfolzgroupmediabp" {
     Id = "mediabucketpolicy"
     Statement = [
       {
-        Action = ["s3:GetObject","s3:GetObjectVersion"]
-        Effect = "Allow"   
+        Action = ["s3:GetObject", "s3:GetObjectVersion"]
+        Effect = "Allow"
         Principal = {
-            "AWS" = "*"
+          "AWS" = "*"
         }
         Resource = "arn:aws:s3:::elizabethfolzgroupmedia/*"
         Sid      = "PublicReadGetObject"
@@ -57,15 +57,15 @@ resource "aws_s3_bucket_policy" "elizabethfolzgrouplogsbp" {
 }
 
 # Code S3 bucket 
-resource "aws_s3_bucket" "elizabethfolzgroup-code" {
-  bucket = "codebucket"
+resource "aws_s3_bucket" "efgroupcode" {
+  bucket = "efgroupcodebucket"
 
   tags = {
-    Name = "elizabethfolzgroup-code"
+    Name = "efgroupcode"
   }
 }
 
 resource "aws_s3_bucket_acl" "elizabethfolzgroup-code-acl" {
-  bucket = aws_s3_bucket.elizabethfolzgroup-code.id
+  bucket = aws_s3_bucket.efgroupcode.id
   acl    = "private"
 }

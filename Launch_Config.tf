@@ -1,7 +1,7 @@
 # Create AMI for Web Serer
 resource "aws_ami_from_instance" "ElizabethFolzGroup_ami" {
-  name               = "ElizabethFolzGroup_ami"
-  source_instance_id = aws_instance.ElizabethFolzGroup_WebApp.id
+  name                    = "ElizabethFolzGroup_ami"
+  source_instance_id      = aws_instance.ElizabethFolzGroup_WebApp.id
   snapshot_without_reboot = true
 }
 

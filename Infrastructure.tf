@@ -10,8 +10,8 @@ resource "aws_vpc" "ElizabethFolzGroup_VPC" {
 
 # Two Public & Two Private Subnets in Diff AZ
 resource "aws_subnet" "ElizabethFolzGroup_Public_SN1" {
-  vpc_id               = aws_vpc.ElizabethFolzGroup_VPC.id
-  cidr_block           = "10.0.1.0/24"
+  vpc_id            = aws_vpc.ElizabethFolzGroup_VPC.id
+  cidr_block        = "10.0.1.0/24"
   availability_zone = "us-east-1a"
 
   tags = {
@@ -20,8 +20,8 @@ resource "aws_subnet" "ElizabethFolzGroup_Public_SN1" {
 }
 
 resource "aws_subnet" "ElizabethFolzGroup_Private_SN1" {
-  vpc_id     = aws_vpc.ElizabethFolzGroup_VPC.id
-  cidr_block = "10.0.2.0/24"
+  vpc_id            = aws_vpc.ElizabethFolzGroup_VPC.id
+  cidr_block        = "10.0.2.0/24"
   availability_zone = "us-east-1a"
 
   tags = {
@@ -30,8 +30,8 @@ resource "aws_subnet" "ElizabethFolzGroup_Private_SN1" {
 }
 
 resource "aws_subnet" "ElizabethFolzGroup_Public_SN2" {
-  vpc_id               = aws_vpc.ElizabethFolzGroup_VPC.id
-  cidr_block           = "10.0.3.0/24"
+  vpc_id            = aws_vpc.ElizabethFolzGroup_VPC.id
+  cidr_block        = "10.0.3.0/24"
   availability_zone = "us-east-1b"
 
   tags = {
@@ -40,8 +40,8 @@ resource "aws_subnet" "ElizabethFolzGroup_Public_SN2" {
 }
 
 resource "aws_subnet" "ElizabethFolzGroup_Private_SN2" {
-  vpc_id     = aws_vpc.ElizabethFolzGroup_VPC.id
-  cidr_block = "10.0.4.0/24"
+  vpc_id            = aws_vpc.ElizabethFolzGroup_VPC.id
+  cidr_block        = "10.0.4.0/24"
   availability_zone = "us-east-1b"
 
   tags = {
@@ -86,7 +86,7 @@ resource "aws_route_table_association" "ElizabethFolzGroup_Public_RTA2" {
 
 # EIP for NAT Gateway
 resource "aws_eip" "ElizabethFolzGroup_EIP" {
-    vpc = true
+  vpc = true
 }
 
 #Custom NAT Gateway
@@ -104,7 +104,7 @@ resource "aws_route_table" "ElizabethFolzGroup_Private_RT" {
   vpc_id = aws_vpc.ElizabethFolzGroup_VPC.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.ElizabethFolzGroup_NGW.id
   }
 
@@ -177,7 +177,7 @@ resource "aws_security_group" "ElizabethFolzGroup_Backend_SG" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["10.0.1.0/24","10.0.3.0/24"]
+    cidr_blocks = ["10.0.1.0/24", "10.0.3.0/24"]
   }
 
   ingress {
@@ -185,7 +185,7 @@ resource "aws_security_group" "ElizabethFolzGroup_Backend_SG" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["10.0.1.0/24","10.0.3.0/24"]
+    cidr_blocks = ["10.0.1.0/24", "10.0.3.0/24"]
   }
 
   egress {

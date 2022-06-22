@@ -100,9 +100,9 @@ rewriterule ^wp-content/uploads/(.*)$ http://${data.aws_cloudfront_distribution.
 # BEGIN WordPress
 # END WordPress
 EOT
-aws s3 cp --recursive /var/www/html/ s3://elizabethfolzgroup-code
-aws s3 sync /var/www/html/ s3://elizabethfolzgroup-code
-echo "* * * * * ec2-user /usr/local/bin/aws s3 sync --delete s3://elizabethfolzgroup-code /var/www/html/" > /etc/crontab
+aws s3 cp --recursive /var/www/html/ s3://efgroupcode
+aws s3 sync /var/www/html/ s3://efgroupcode
+echo "* * * * * ec2-user /usr/local/bin/aws s3 sync --delete s3://efgroupcode /var/www/html/" > /etc/crontab
 echo "* * * * * ec2-user /usr/local/bin/aws s3 sync /var/www/html/wp-content/uploads/ s3://elizabethfolzgroupmedia" >> /etc/crontab
 sudo chkconfig httpd on
 sudo service httpd start
@@ -125,29 +125,28 @@ resource "aws_route53_record" "ElizabethFolzGroup_Website" {
   name    = "www.elizabethfolzgroup.com"
   type    = "A"
   alias {
-name = aws_lb.elizabethfolzgroup-elb.dns_name
-zone_id = aws_lb.elizabethfolzgroup-elb.zone_id
-evaluate_target_health = false
-}
+    name                   = aws_lb.elizabethfolzgroup-elb.dns_name
+    zone_id                = aws_lb.elizabethfolzgroup-elb.zone_id
+    evaluate_target_health = false
+  }
 }
 
 # Cloudfront Distribution Data
 data "aws_cloudfront_distribution" "elizabethfolzgroup_cloudfront" {
- id= "${aws_cloudfront_distribution.elizabethfolzgroup_distribution.id}" 
+  id = aws_cloudfront_distribution.elizabethfolzgroup_distribution.id
 }
 
 #Cloudfront Distribution
 locals {
   s3_origin_id = "aws_s3_bucket.elizabethfolzgroupmedia.id"
 }
-
 resource "aws_cloudfront_distribution" "elizabethfolzgroup_distribution" {
   origin {
     domain_name = aws_s3_bucket.elizabethfolzgroupmedia.bucket_regional_domain_name
     origin_id   = local.s3_origin_id
   }
-  
-  enabled            = true
+
+  enabled = true
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
