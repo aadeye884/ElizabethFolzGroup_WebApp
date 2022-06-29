@@ -1,6 +1,6 @@
 # Cloudwatch Dashboard
-resource "aws_cloudwatch_dashboard" "ElizabethFolzGroup_web_dashboard" {
-  dashboard_name = "ElizabethFolzGroup_Web_dashboard"
+resource "aws_cloudwatch_dashboard" "ElizabethFolzGroup_webdashboard" {
+  dashboard_name = "ElizabethFolzGroup_webdashboard"
   dashboard_body = <<EOF
 {
   "widgets": [
@@ -52,8 +52,8 @@ EOF
 }
 
 #SNS Alarms Topic
-resource "aws_sns_topic" "ElizabethFolzGroup_alarms_topic" {
-  name            = "ElizabethFolzGroup_alarms_topic"
+resource "aws_sns_topic" "ElizabethFolzGroup_alarmstopic" {
+  name            = "ElizabethFolzGroup_alarmstopic"
   delivery_policy = <<EOF
 {
   "http": {
@@ -74,13 +74,13 @@ resource "aws_sns_topic" "ElizabethFolzGroup_alarms_topic" {
 }
 EOF
   provisioner "local-exec" {
-    command = "aws sns subscribe --topic-arn arn:aws:sns:us-east-1:670390228985:ElizabethFolzGroup_alarms_topic --protocol email --notification-endpoint abiola.adeyemi86@gmail.com"
+    command = "aws sns subscribe --topic-arn arn:aws:sns:us-east-1:670390228985:ElizabethFolzGroup_alarmstopic --protocol email --notification-endpoint elizabethfolzgroup@gmail.com"
   }
 }
 
 # Cloudwatch metric alarm for CPU utilisation 
-resource "aws_cloudwatch_metric_alarm" "ElizabethFolzGroup_Metric_Alarm" {
-  alarm_name          = "ElizabethFolzGroup_Metric_Alarm"
+resource "aws_cloudwatch_metric_alarm" "ElizabethFolzGroup_metricalarm" {
+  alarm_name          = "ElizabethFolzGroup_metricalarm"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "2"
   metric_name         = "CPUUtilization"
@@ -96,8 +96,8 @@ resource "aws_cloudwatch_metric_alarm" "ElizabethFolzGroup_Metric_Alarm" {
 }
 
 # Cloudwatch metric alarm for health
-resource "aws_cloudwatch_metric_alarm" "ElizabethFolzGroup_metric_health_alarm" {
-  alarm_name          = "ElizabethFolzGroup_health_metric"
+resource "aws_cloudwatch_metric_alarm" "ElizabethFolzGroup_metrichealthalarm" {
+  alarm_name          = "ElizabethFolzGroup_healthalarm"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "StatusCheckFailed"

@@ -1,5 +1,5 @@
 output "ElizabethFolzGroup_WebApp_public_ip" {
-  value = aws_instance.ElizabethFolzGroup_WebApp
+  value = aws_instance.ElizabethFolzGroup_WebApp.public_ip
 }
 
 output "ElizabethFolzGroup_db_endpoint" {
@@ -7,7 +7,11 @@ output "ElizabethFolzGroup_db_endpoint" {
 }
 
 output "name_servers" {
-  value = aws_route53_record.ElizabethFolzGroup_Website
+  value = aws_route53_record.ElizabethFolzGroup_Website.name
+}
+
+output "ns_records" {
+  value = aws_route53_zone.elizabethfolzgroup_zone.name_servers
 }
 
 output "elizabethfolzgroup-elb_dns" {

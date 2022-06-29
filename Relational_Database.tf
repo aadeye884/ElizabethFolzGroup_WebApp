@@ -11,13 +11,13 @@ resource "aws_db_subnet_group" "elizabethfolzgroup_db_sbg" {
 # Mysql Relational Database
 resource "aws_db_instance" "elizabethfolzgroupdb" {
   allocated_storage      = 10
-  identifier             = "elizabethfolzgroupdb"
+  identifier             = var.identifier
   storage_type           = "gp2"
   engine                 = "mysql"
   engine_version         = "5.7"
   instance_class         = var.instance_class
   multi_az               = true
-  db_name                = "elizabethfolzgroupdb"
+  db_name                = var.db_name
   username               = var.db_username
   password               = var.db_password
   parameter_group_name   = "default.mysql5.7"
