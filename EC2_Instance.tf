@@ -29,10 +29,10 @@ chown -R apache:apache wp-content
 wget https://s3.amazonaws.com/bucketforwordpresslab-donotdelete/htaccess.txt
 mv htaccess.txt .htaccess
 cd /var/www/html && mv wp-config-sample.php wp-config.php
-sed -i "s@define( 'DB_NAME', 'database_name_here' )@define( 'DB_NAME', 'elizabethfolzgroupdb' )@g" /var/www/html/wp-config.php
-sed -i "s@define( 'DB_USER', 'username_here' )@define( 'DB_USER', 'admin' )@g" /var/www/html/wp-config.php
-sed -i "s@define( 'DB_PASSWORD', 'password_here' )@define( 'DB_PASSWORD', 'Admin123' )@g" /var/www/html/wp-config.php
-sed -i "s@define( 'DB_HOST', 'localhost' )@define( 'DB_HOST', '{aws_db_instance.elizabethfolzgroupdb.endpoint}')@g" /var/www/html/wp-config.php
+sed -i "s@define( 'DB_NAME', 'database_name_here' )@define( 'DB_NAME', '${var.db_name}' )@g" /var/www/html/wp-config.php
+sed -i "s@define( 'DB_USER', 'username_here' )@define( 'DB_USER', '${var.db_username}' )@g" /var/www/html/wp-config.php
+sed -i "s@define( 'DB_PASSWORD', 'password_here' )@define( 'DB_PASSWORD', '${var.db_password}' )@g" /var/www/html/wp-config.php
+sed -i "s@define( 'DB_HOST', 'localhost' )@define( 'DB_HOST', '${element(split(":", aws_db_instance.elizabethfolzgroupdb.endpoint), 0)}' )@g" /var/www/html/wp-config.php
 cat <<EOT> /etc/httpd/conf/httpd.conf
 ServerRoot "/etc/httpd"
 Listen 80

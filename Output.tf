@@ -1,8 +1,8 @@
-output "ElizabethFolzGroup_WebApp_public_ip" {
+output "public_ip" {
   value = aws_instance.ElizabethFolzGroup_WebApp.public_ip
 }
 
-output "ElizabethFolzGroup_db_endpoint" {
+output "db_endpoint" {
   value = aws_db_instance.elizabethfolzgroupdb.endpoint
 }
 
@@ -14,7 +14,7 @@ output "ns_records" {
   value = aws_route53_zone.elizabethfolzgroup_zone.name_servers
 }
 
-output "elizabethfolzgroup-elb_dns" {
+output "elb_dns" {
   value = aws_lb.elizabethfolzgroup-elb.dns_name
 }
 
