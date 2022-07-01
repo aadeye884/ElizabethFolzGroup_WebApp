@@ -100,9 +100,9 @@ rewriterule ^wp-content/uploads/(.*)$ http://${data.aws_cloudfront_distribution.
 # BEGIN WordPress
 # END WordPress
 EOT
-aws s3 cp --recursive /var/www/html/ s3://efgroupcode
-aws s3 sync /var/www/html/ s3://efgroupcode
-echo "* * * * * ec2-user /usr/local/bin/aws s3 sync --delete s3://efgroupcode /var/www/html/" > /etc/crontab
+aws s3 cp --recursive /var/www/html/ s3://efgroupcodebucket
+aws s3 sync /var/www/html/ s3://efgroupcodebucket
+echo "* * * * * ec2-user /usr/local/bin/aws s3 sync --delete s3://efgroupcodebucket /var/www/html/" > /etc/crontab
 echo "* * * * * ec2-user /usr/local/bin/aws s3 sync /var/www/html/wp-content/uploads/ s3://elizabethfolzgroupmedia" >> /etc/crontab
 sudo chkconfig httpd on
 sudo service httpd start

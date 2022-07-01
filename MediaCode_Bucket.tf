@@ -57,15 +57,15 @@ resource "aws_s3_bucket_policy" "elizabethfolzgrouplogsbp" {
 }
 
 # Code S3 bucket 
-resource "aws_s3_bucket" "efgroupcode" {
+resource "aws_s3_bucket" "efgroupcodebucket" {
   bucket = "efgroupcodebucket"
 
   tags = {
-    Name = "efgroupcode"
+    Name = "efgroupcodebucket"
   }
 }
 
 resource "aws_s3_bucket_acl" "elizabethfolzgroup-code-acl" {
-  bucket = aws_s3_bucket.efgroupcode.id
+  bucket = aws_s3_bucket.efgroupcodebucket.id
   acl    = "private"
 }
