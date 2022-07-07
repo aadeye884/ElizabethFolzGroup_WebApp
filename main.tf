@@ -293,7 +293,7 @@ resource "aws_s3_bucket_policy" "elizabethfolzgrouplogsbp" {
 
 # Code S3 bucket 
 resource "aws_s3_bucket" "efgroupcodebucket" {
-  bucket = "efgroupcodebucket"
+  bucket        = "efgroupcodebucket"
   force_destroy = true
 
   tags = {
@@ -307,14 +307,14 @@ resource "aws_s3_bucket_acl" "elizabethfolzgroup-code-acl" {
 }
 
 # IAM profile
-resource "aws_iam_instance_profile" "EliabethFolzGroup_IAM_Profile" {
-  name = "EliabethFolzGroup_IAM_Profile"
-  role = aws_iam_role.EliabethFolzGroup_IAM_Role.name
+resource "aws_iam_instance_profile" "ElizabethFolzGroup_IAM_Profile" {
+  name = "ElizabethFolzGroup_IAM_Profile"
+  role = aws_iam_role.ElizabethFolzGroup_IAM_Role.name
 }
 
 # IAM Role
-resource "aws_iam_role" "EliabethFolzGroup_IAM_Role" {
-  name        = "EliabethFolzGroup_IAM_Role"
+resource "aws_iam_role" "ElizabethFolzGroup_IAM_Role" {
+  name        = "ElizabethFolzGroup_IAM_Role"
   description = "S3 Full Permission"
 
   assume_role_policy = jsonencode({
@@ -331,13 +331,13 @@ resource "aws_iam_role" "EliabethFolzGroup_IAM_Role" {
     ]
   })
   tags = {
-    tag-key = "EliabethFolzGroup_IAM_Role"
+    tag-key = "ElizabethFolzGroup_IAM_Role"
   }
 }
 
 # IAM Role Policy Attachment
-resource "aws_iam_role_policy_attachment" "EliabethFolzGroup_IAM_Policy" {
-  role       = aws_iam_role.EliabethFolzGroup_IAM_Role.name
+resource "aws_iam_role_policy_attachment" "ElizabethFolzGroup_IAM_Policy" {
+  role       = aws_iam_role.ElizabethFolzGroup_IAM_Role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
 }
 
@@ -354,7 +354,7 @@ resource "aws_instance" "ElizabethFolzGroup_WebApp" {
   vpc_security_group_ids      = [aws_security_group.ElizabethFolzGroup_Frontend_SG.id]
   subnet_id                   = aws_subnet.ElizabethFolzGroup_Public_SN1.id
   key_name                    = var.key_name
-  iam_instance_profile        = aws_iam_instance_profile.EliabethFolzGroup_IAM_Profile.id
+  iam_instance_profile        = aws_iam_instance_profile.ElizabethFolzGroup_IAM_Profile.id
   associate_public_ip_address = true
   user_data                   = <<-EOF
 #!/bin/bash
@@ -591,7 +591,7 @@ resource "aws_launch_configuration" "ElizabethFolzGrouplc" {
   name_prefix                 = "ElizabethFolzGrouplc"
   image_id                    = aws_ami_from_instance.ElizabethFolzGroup_ami.id
   instance_type               = var.instance_type
-  iam_instance_profile        = aws_iam_instance_profile.EliabethFolzGroup_IAM_Profile.id
+  iam_instance_profile        = aws_iam_instance_profile.ElizabethFolzGroup_IAM_Profile.id
   security_groups             = [aws_security_group.ElizabethFolzGroup_Frontend_SG.id]
   associate_public_ip_address = true
   key_name                    = var.key_name
