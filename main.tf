@@ -621,7 +621,7 @@ cd /var/www/html && mv wp-config-sample.php wp-config.php
 sed -i "s@define( 'DB_NAME', 'database_name_here' )@define( 'DB_NAME', 'elizabethfolzgroupdb' )@g" /var/www/html/wp-config.php
 sed -i "s@define( 'DB_USER', 'username_here' )@define( 'DB_USER', 'admin' )@g" /var/www/html/wp-config.php
 sed -i "s@define( 'DB_PASSWORD', 'password_here' )@define( 'DB_PASSWORD', 'Admin123' )@g" /var/www/html/wp-config.php
-sed -i "s@define( 'DB_HOST', 'localhost' )@define( 'DB_HOST', '{aws_db_instance.elizabethfolzgroupdb.endpoint}')@g" /var/www/html/wp-config.php
+sed -i "s@define( 'DB_HOST', 'localhost' )@define( 'DB_HOST', '${element(split(":", aws_db_instance.elizabethfolzgroupdb.endpoint), 0)}' )@g" /var/www/html/wp-config.php
 cat <<EOT> /etc/httpd/conf/httpd.conf
 ServerRoot "/etc/httpd"
 Listen 80
@@ -706,7 +706,7 @@ EOF
 resource "aws_autoscaling_group" "ElizabethFolzGroup_asg" {
   name                      = "ElizabethFolzGroup_asg"
   desired_capacity          = 3
-  max_size                  = 4
+  max_size                  = 3
   min_size                  = 2
   health_check_grace_period = 1800
   default_cooldown          = 60
